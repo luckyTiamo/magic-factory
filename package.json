@@ -1,0 +1,22 @@
+{
+  "name": "magic-factory",
+  "version": "1.0.0",
+  "description": "package.json",
+  "main": "index.js",
+  "scripts": {
+    "test": "node test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NobitaT/magic-factory.git"
+  },
+  "keywords": [
+    "zx1992625zx"
+  ],
+  "author": "Tiamo1949",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/NobitaT/magic-factory/issues"
+  },
+  "homepage": "https://github.com/NobitaT/magic-factory#readme"
+}

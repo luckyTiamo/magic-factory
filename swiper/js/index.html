@@ -1,0 +1,80 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>swiper</title>
+</head>
+<body>
+    <div class="container">
+        <ul class="swiper-wrapper">
+            <li class="item"></li>
+            <li class="item"></li>
+            <li class="item"></li>
+        </ul>
+        <div class="pagination">
+            <span class="bullet active"></span>
+            <span class="bullet"></span>
+            <span class="bullet"></span>
+        </div>
+        <div class="btn prev-btn"></div>
+        <div class="btn next-btn"></div>
+    </div>
+</body>
+<style>
+    .container {
+        width: 600px;
+        height: 400px;
+        overflow: hidden;
+        position: relative;
+        margin: 10px auto;
+    }
+    .swiper-wrapper {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        width: 1800px;
+    }
+    .item {
+        width: 600px;
+        height: 400px;
+        background: #1577d6;
+        float: left;
+    }
+
+    .pagination {
+        position: absolute;
+        bottom: 10px;
+        width: 100%;
+        text-align: center;
+    }
+
+    .bullet {
+        width: 8px;
+        height: 8px;
+        display: inline-block;
+        border-radius: 100%;
+        background: #000;
+        opacity: .2;
+        cursor: pointer;
+    }
+    .bullet.active {
+        opacity: 1;
+        background: #4680ff;
+    }
+    .btn {
+        width: 30px;
+        height: 55px;
+        background: rgba(23, 23, 23, 0.65);
+        position: absolute;
+        top: 50%;
+        margin-top: -27px;
+    }
+    .prev-btn{
+        left: 0;
+    }
+    .next-btn {
+        right: 0;
+    }
+</style>
+</html>
