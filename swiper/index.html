@@ -6,7 +6,7 @@
     <title>swiper</title>
 </head>
 <body>
-    <div class="container">
+    <div class="container" id="swiperContainer">
         <ul class="swiper-wrapper">
             <li class="item"></li>
             <li class="item"></li>
@@ -17,8 +17,8 @@
             <span class="bullet"></span>
             <span class="bullet"></span>
         </div>
-        <div class="btn prev-btn"></div>
-        <div class="btn next-btn"></div>
+        <div class="btn prev-btn" id="swiperPrev"></div>
+        <div class="btn next-btn" id="swiperNext"></div>
     </div>
 </body>
 <style>
@@ -77,4 +77,12 @@
         right: 0;
     }
 </style>
+<script type="text/javascript" src="./js/swiper.js"></script>
+<script>
+    window.onload = function() {
+        var swiper = new Swiper({
+            container: 'swiperContainer'
+        })
+    }
+</script>
 </html>
