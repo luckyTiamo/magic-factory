@@ -8,9 +8,9 @@
 <body>
     <div class="container" id="swiperContainer">
         <ul class="swiper-wrapper">
-            <li class="item"></li>
-            <li class="item"></li>
-            <li class="item"></li>
+            <li class="swiper-item"></li>
+            <li class="swiper-item"></li>
+            <li class="swiper-item"></li>
         </ul>
         <div class="pagination">
             <span class="bullet active"></span>
@@ -34,12 +34,20 @@
         padding: 0;
         margin: 0;
         width: 1800px;
+        height: 100%;
+        transition: all 0.5s ease;
     }
-    .item {
+    .swiper-item {
         width: 600px;
         height: 400px;
         background: #1577d6;
         float: left;
+    }
+    .swiper-item:nth-child(2) {
+        background: #31c16f;
+    }
+    .swiper-item:last-child {
+        background: #c13131;
     }
 
     .pagination {
