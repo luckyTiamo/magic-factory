@@ -12,7 +12,7 @@
         this.prev = document.getElementById('swiperPrev');
         this.next = document.getElementById('swiperNext');
 
-        this.pagination = document.getElementsByClassName('pagination');
+        this.pagination = document.getElementsByClassName('pagination')[0];
 
         this.left = 0;
         this.offsetX = this.setting.width;
@@ -42,9 +42,12 @@
                 self.index--;
             }
             self.list.style.transform = 'translateX('+ -self.left + 'px)';
+            self.highlightBullet();
         },
         highlightBullet: function() {
-            
+            var self = this;
+            self.pagination.getElementsByClassName('active')[0].classList.remove('active');
+            self.pagination.children[self.index].classList.add('active');
         }
     }
 
