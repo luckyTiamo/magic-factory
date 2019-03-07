@@ -21,10 +21,10 @@
         this.index = 0;
 
         this.prev.onclick = function () {
-            self.move('left');
+            self.moveStep(-1);
         }
         this.next.onclick = function () {
-            self.move('right');
+            self.moveStep(1);
         }
         this.init();
     }
@@ -35,10 +35,31 @@
             var copyLastItem = self.swiperItem[self.length - 1].cloneNode(true);
             self.list.appendChild(copyFirstItem);
             self.list.insertBefore(copyLastItem, self.swiperItem[0]);
-            self.left = self.offsetX;
+            self.initNum = 1;
+            self.left = self.initNum * self.offsetX;
             self.list.style.left = - self.left + 'px';
         },
-        move: function(direction) {
+        moveStep: function(num) {
+            var self = this;
+            self.initNum = self.initNum + num;
+            // self.list.style.left = -self.left;
+            if (self.initNum === 5) {
+                self.initNum = 2;
+                self.left = self.initNum * self.offsetX;
+                self.list.style.transition = 'none';                
+                self.list.style.left = -self.left + 'px';
+            } else if (self.initNum === 0) {
+                self.left = (self.initNum - self.length) * self.offsetX + 'px';
+            }
+            
+            self.left = self.initNum * self.offsetX;
+            setTimeout(function () {
+                self.list.style.transition = "all .5s ease";
+                self.list.style.left = -self.left + 'px';
+            }, 20);
+            self.highlightBullet();
+        },
+        moveTo: function(num) {
             var self = this;
             if (direction === 'right') {
                 if (self.index === self.length - 1) {
