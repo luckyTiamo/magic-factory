@@ -42,7 +42,6 @@
         moveStep: function(num) {
             var self = this;
             self.initNum = self.initNum + num;
-            // self.list.style.left = -self.left;
             if (self.initNum === 5) {
                 self.initNum = 2;
                 self.left = self.initNum * self.offsetX;
