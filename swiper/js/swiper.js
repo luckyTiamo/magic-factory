@@ -22,9 +22,13 @@
 
         this.prev.onclick = function () {
             self.moveStep(-1);
+            var num = self.initNum === 0 ? self.length : self.initNum;
+            self.highlightBullet(num);
         }
         this.next.onclick = function () {
             self.moveStep(1);
+            var num = self.initNum === 4 ? 1 : self.initNum;
+            self.highlightBullet(num);
         }
         this.init();
     }
@@ -41,50 +45,26 @@
         },
         moveStep: function(num) {
             var self = this;
-            self.initNum = self.initNum + num;
-            self.left = self.initNum * self.offsetX;
-            if (self.initNum === 5) {
-                self.initNum = 1;
-                self.list.style.transition = "none";   
-                self.list.style.left = - self.offsetX + 'px';
-                self.initNum = self.initNum + num;
-                self.left = self.initNum  * self.offsetX;
-            } else if (self.initNum === -1) {
-                self.initNum = self.length;
+            if (self.initNum === self.length + 1 || self.initNum === 0) {
+                if (self.initNum === self.length + 1) {
+                    self.initNum = 1;
+                } else {
+                    self.initNum = self.length;
+                }
                 self.list.style.transition = "none";
                 self.list.style.left = - self.initNum * self.offsetX + 'px';
-                self.initNum = self.initNum + num;
-                self.left = self.initNum * self.offsetX;
             }
-            
+            self.initNum = self.initNum + num;
+            self.left = self.initNum * self.offsetX;
             setTimeout(function () {
                 self.list.style.transition = "all .5s ease";
                 self.list.style.left = -self.left + 'px';
             }, 20);
-            self.highlightBullet();
         },
-        moveTo: function(num) {
-            var self = this;
-            if (direction === 'right') {
-                if (self.index === self.length - 1) {
-                    return;
-                }
-                self.left += self.offsetX;
-                self.index++;
-            } else {
-                if(self.index === 0) {
-                    return;
-                }
-                self.left -= self.offsetX;
-                self.index--;
-            }
-            self.list.style.left = -self.left;
-            self.highlightBullet();
-        },
-        highlightBullet: function() {
+        highlightBullet: function(num) {
             var self = this;
             self.pagination.getElementsByClassName('active')[0].classList.remove('active');
-            self.pagination.children[self.index].classList.add('active');
+            self.pagination.children[num - 1].classList.add('active');
         }
     }
 
