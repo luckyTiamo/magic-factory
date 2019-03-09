@@ -20,15 +20,13 @@
         this.initLeft = -this.offsetX;
         this.index = 0;
 
-        this.prev.onclick = function () {
-            self.moveStep(-1);
-            var num = self.initNum === 0 ? self.length : self.initNum;
-            self.highlightBullet(num);
-        }
+        this.prev.onclick = function(){
+            var self = this;
+            self.movePrev();
+        }    
         this.next.onclick = function () {
-            self.moveStep(1);
-            var num = self.initNum === 4 ? 1 : self.initNum;
-            self.highlightBullet(num);
+            var self = this;
+            self.moveNext();
         }
         this.init();
     }
@@ -42,6 +40,19 @@
             self.initNum = 1;
             self.left = self.initNum * self.offsetX;
             self.list.style.left = - self.left + 'px';
+            self.autoPlay();
+        },
+        moveNext: function() {
+            var self = this;
+            self.moveStep(1);
+            var num = self.initNum === self.length + 1 ? 1 : self.initNum;
+            self.highlightBullet(num);
+        },
+        movePrev: function() {
+            var self = this;
+            self.moveStep(-1);
+            var num = self.initNum === 0 ? self.length : self.initNum;
+            self.highlightBullet(num);
         },
         moveStep: function(num) {
             var self = this;
@@ -65,6 +76,12 @@
             var self = this;
             self.pagination.getElementsByClassName('active')[0].classList.remove('active');
             self.pagination.children[num - 1].classList.add('active');
+        },
+        autoPlay(){
+            var self = this;
+            setInterval(function(){
+                self.moveNext();
+            }, 1500)
         }
     }
 
