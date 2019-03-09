@@ -42,16 +42,21 @@
         moveStep: function(num) {
             var self = this;
             self.initNum = self.initNum + num;
+            self.left = self.initNum * self.offsetX;
             if (self.initNum === 5) {
-                self.initNum = 2;
+                self.initNum = 1;
+                self.list.style.transition = "none";   
+                self.list.style.left = - self.offsetX + 'px';
+                self.initNum = self.initNum + num;
+                self.left = self.initNum  * self.offsetX;
+            } else if (self.initNum === -1) {
+                self.initNum = self.length;
+                self.list.style.transition = "none";
+                self.list.style.left = - self.initNum * self.offsetX + 'px';
+                self.initNum = self.initNum + num;
                 self.left = self.initNum * self.offsetX;
-                self.list.style.transition = 'none';                
-                self.list.style.left = -self.left + 'px';
-            } else if (self.initNum === 0) {
-                self.left = (self.initNum - self.length) * self.offsetX + 'px';
             }
             
-            self.left = self.initNum * self.offsetX;
             setTimeout(function () {
                 self.list.style.transition = "all .5s ease";
                 self.list.style.left = -self.left + 'px';
