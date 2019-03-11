@@ -19,19 +19,20 @@
         this.offsetX = this.setting.width;
         this.initLeft = -this.offsetX;
         this.index = 0;
+        this.timer = null;
 
         this.prev.onclick = function(){
-            var self = this;
             self.movePrev();
         }    
         this.next.onclick = function () {
-            var self = this;
             self.moveNext();
         }
         this.init();
+        this.list.addEventListener('mouseover', this.stopPlay);
+        this.list.addEventListener('mouseout', this.autoPlay, false);
     }
     Swiper.prototype = {
-        init: function() {
+        init() {
             var self = this;
             var copyFirstItem = self.swiperItem[0].cloneNode(true);
             var copyLastItem = self.swiperItem[self.length - 1].cloneNode(true);
@@ -42,19 +43,19 @@
             self.list.style.left = - self.left + 'px';
             self.autoPlay();
         },
-        moveNext: function() {
+        moveNext() {
             var self = this;
             self.moveStep(1);
             var num = self.initNum === self.length + 1 ? 1 : self.initNum;
             self.highlightBullet(num);
         },
-        movePrev: function() {
+        movePrev() {
             var self = this;
             self.moveStep(-1);
             var num = self.initNum === 0 ? self.length : self.initNum;
             self.highlightBullet(num);
         },
-        moveStep: function(num) {
+        moveStep(num) {
             var self = this;
             if (self.initNum === self.length + 1 || self.initNum === 0) {
                 if (self.initNum === self.length + 1) {
@@ -72,16 +73,23 @@
                 self.list.style.left = -self.left + 'px';
             }, 20);
         },
-        highlightBullet: function(num) {
+        highlightBullet(num) {
             var self = this;
             self.pagination.getElementsByClassName('active')[0].classList.remove('active');
             self.pagination.children[num - 1].classList.add('active');
         },
         autoPlay(){
+            console.log('play');
+
             var self = this;
-            setInterval(function(){
+            self.timer = setInterval(function(){
                 self.moveNext();
             }, 1500)
+        },
+        stopPlay() {
+            console.log('stop');
+            var self = this;
+            clearInterval(self.timer);
         }
     }
 
