@@ -18,5 +18,9 @@
   "bugs": {
     "url": "https://github.com/NobitaT/magic-factory/issues"
   },
-  "homepage": "https://github.com/NobitaT/magic-factory#readme"
+  "homepage": "https://github.com/NobitaT/magic-factory#readme",
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-preset-env": "^1.7.0"
+  }
 }

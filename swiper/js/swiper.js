@@ -3,6 +3,7 @@
         "width": 600,
         "height": 400
     }
+    var timer = null;
     function Swiper(options) {
         var self = this;
         this.setting = Object.assign(defaultSetting, options);
@@ -28,8 +29,10 @@
             self.moveNext();
         }
         this.init();
-        this.list.addEventListener('mouseover', this.stopPlay);
-        this.list.addEventListener('mouseout', this.autoPlay, false);
+        this.list.addEventListener('mouseover', self.stopPlay);
+        this.list.addEventListener('mouseout', function() {
+            self.autoPlay();
+        }, false);
     }
     Swiper.prototype = {
         init() {
@@ -79,17 +82,13 @@
             self.pagination.children[num - 1].classList.add('active');
         },
         autoPlay(){
-            console.log('play');
-
             var self = this;
-            self.timer = setInterval(function(){
+            timer = setInterval(function(){
                 self.moveNext();
             }, 1500)
         },
         stopPlay() {
-            console.log('stop');
-            var self = this;
-            clearInterval(self.timer);
+            clearInterval(timer);
         }
     }
 
