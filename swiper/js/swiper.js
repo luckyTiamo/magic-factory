@@ -33,6 +33,15 @@
         this.list.addEventListener('mouseout', function() {
             self.autoPlay();
         }, false);
+
+        for (var i = 0; i < this.pagination.length; i++) {
+            //利用立即调用函数，解决闭包的副作用，传入相应的index值
+            (function (i) {
+                this.pagination[i].onclick = function () {
+                    console.log(i);
+                } 
+            })(i);
+        }
     }
     Swiper.prototype = {
         init() {
