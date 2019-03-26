@@ -12,6 +12,8 @@ var defaultSetting = {
 
 var Swiper = function () {
     function Swiper(options) {
+        var _this = this;
+
         _classCallCheck(this, Swiper);
 
         this.setting = Object.assign(defaultSetting, options);
@@ -28,7 +30,32 @@ var Swiper = function () {
         this.offsetX = this.setting.width;
         this.initLeft = -this.offsetX;
         this.index = 0;
+
         this.init();
+
+        this.prev.addEventListener('click', function () {
+            _this.stopPlay();
+            _this.movePrev();
+        }, false);
+
+        this.next.addEventListener('click', function () {
+            _this.stopPlay();
+            _this.moveNext();
+        }, false);
+
+        // this.container.addEventListener('click', (e) => {
+        //     console.log(e);
+        //     if (e.target === '') {
+
+        //     }
+        // })
+
+        this.list.addEventListener('mouseover', function () {
+            _this.stopPlay();
+        }, false);
+        this.list.addEventListener('mouseout', function () {
+            _this.autoPlay();
+        }, false);
     }
 
     _createClass(Swiper, [{
@@ -60,7 +87,7 @@ var Swiper = function () {
     }, {
         key: "moveStep",
         value: function moveStep(num) {
-            var _this = this;
+            var _this2 = this;
 
             if (this.initNum === this.length + 1 || this.initNum === 0) {
                 if (this.initNum === this.length + 1) {
@@ -74,8 +101,8 @@ var Swiper = function () {
             this.initNum = this.initNum + num;
             this.left = this.initNum * this.offsetX;
             setTimeout(function () {
-                _this.list.style.transition = "all .5s ease";
-                _this.list.style.left = -_this.left + 'px';
+                _this2.list.style.transition = "all 1s ease-in-out";
+                _this2.list.style.left = -_this2.left + 'px';
             }, 20);
         }
     }, {
@@ -87,11 +114,11 @@ var Swiper = function () {
     }, {
         key: "autoPlay",
         value: function autoPlay() {
-            var _this2 = this;
+            var _this3 = this;
 
             timer = setInterval(function () {
-                _this2.moveNext();
-            }, 1500);
+                _this3.moveNext();
+            }, 3000);
         }
     }, {
         key: "stopPlay",

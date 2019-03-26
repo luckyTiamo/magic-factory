@@ -3,7 +3,6 @@ const defaultSetting = {
     "width": 600,
     "height": 400
 }
-
 class Swiper {
     constructor(options) {
         this.setting = Object.assign(defaultSetting, options);
@@ -20,7 +19,32 @@ class Swiper {
         this.offsetX = this.setting.width;
         this.initLeft = -this.offsetX;
         this.index = 0;
+
         this.init();
+
+        this.prev.addEventListener('click', () => {
+            this.stopPlay();
+            this.movePrev();
+        }, false);
+
+        this.next.addEventListener('click', () => {
+            this.stopPlay();
+            this.moveNext();
+        }, false);
+
+        // this.container.addEventListener('click', (e) => {
+        //     console.log(e);
+        //     if (e.target === '') {
+
+        //     }
+        // })
+
+        this.list.addEventListener('mouseover', () => {
+            this.stopPlay();
+        }, false);
+        this.list.addEventListener('mouseout', () => {
+            this.autoPlay();
+        }, false);
     }
     init() {
         const copyFirstItem = this.swiperItem[0].cloneNode(true);
@@ -58,7 +82,7 @@ class Swiper {
         this.initNum = this.initNum + num;
         this.left = this.initNum * this.offsetX;
         setTimeout(() => {
-            this.list.style.transition = "all .5s ease";
+            this.list.style.transition = "all 1s ease-in-out";
             this.list.style.left = -this.left + 'px';
         }, 20);
     }
@@ -71,7 +95,7 @@ class Swiper {
     autoPlay() {
         timer = setInterval(() => {
             this.moveNext();
-        }, 1500)
+        }, 3000)
     }
 
     stopPlay() {
