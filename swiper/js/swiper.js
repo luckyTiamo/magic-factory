@@ -20,7 +20,6 @@
         this.offsetX = this.setting.width;
         this.initLeft = -this.offsetX;
         this.index = 0;
-        this.timer = null;
 
         this.prev.onclick = function(){
             self.movePrev();

@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "node test",
-    "build": "babel --watch ./test.js -o ./dist/test.js"
+    "build": "babel --watch ./swiper/js/swiper2.js -o ./dist/swiper.js"
   },
   "repository": {
     "type": "git",
