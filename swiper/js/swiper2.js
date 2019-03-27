@@ -14,6 +14,7 @@ class Swiper {
         this.next = document.getElementById('swiperNext');
 
         this.pagination = document.getElementsByClassName('pagination')[0];
+        this.bullet = document.getElementsByClassName('bullet');
 
         this.left = 0;
         this.offsetX = this.setting.width;
@@ -23,29 +24,30 @@ class Swiper {
         this.init();
 
         this.prev.addEventListener('click', () => {
-            this.stopPlay();
             this.movePrev();
         }, false);
 
         this.next.addEventListener('click', () => {
-            this.stopPlay();
             this.moveNext();
         }, false);
 
-        // this.container.addEventListener('click', (e) => {
-        //     console.log(e);
-        //     if (e.target === '') {
-
-        //     }
-        // })
-
-        this.list.addEventListener('mouseover', () => {
+        this.container.addEventListener('mouseover', () => {
             this.stopPlay();
         }, false);
-        this.list.addEventListener('mouseout', () => {
+        this.container.addEventListener('mouseout', () => {
             this.autoPlay();
         }, false);
+
+        //  第几个按钮点击，还有更好的写法吗？
+        const self = this;
+        for (var i = 0; i < this.bullet.length; i++) {
+            this.bullet[i].index = i;
+            this.bullet[i].onclick = function () {
+                self.moveToIndex(this.index + 1);
+            }
+        }
     }
+
     init() {
         const copyFirstItem = this.swiperItem[0].cloneNode(true);
         const copyLastItem = this.swiperItem[this.length - 1].cloneNode(true);
@@ -82,9 +84,27 @@ class Swiper {
         this.initNum = this.initNum + num;
         this.left = this.initNum * this.offsetX;
         setTimeout(() => {
-            this.list.style.transition = "all 1s ease-in-out";
+            this.list.style.transition = "all 1s linear";
             this.list.style.left = -this.left + 'px';
         }, 20);
+    }
+
+    moveToIndex(index) {
+        let currentNum = this.initNum;
+        let diff = 0;
+        
+        if (currentNum === 4) {
+            currentNum = 1;
+        }
+        if (currentNum === index) {
+            return;
+        } else if (index > currentNum) {
+            diff = index - currentNum;
+        } else {
+            diff = Math.abs(currentNum - this.length) + index;            
+        }
+        this.moveStep(diff);
+        this.highlightBullet(index);
     }
 
     highlightBullet(num) {

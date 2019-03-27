@@ -25,6 +25,7 @@ var Swiper = function () {
         this.next = document.getElementById('swiperNext');
 
         this.pagination = document.getElementsByClassName('pagination')[0];
+        this.bullet = document.getElementsByClassName('bullet');
 
         this.left = 0;
         this.offsetX = this.setting.width;
@@ -34,28 +35,28 @@ var Swiper = function () {
         this.init();
 
         this.prev.addEventListener('click', function () {
-            _this.stopPlay();
             _this.movePrev();
         }, false);
 
         this.next.addEventListener('click', function () {
-            _this.stopPlay();
             _this.moveNext();
         }, false);
 
-        // this.container.addEventListener('click', (e) => {
-        //     console.log(e);
-        //     if (e.target === '') {
-
-        //     }
-        // })
-
-        this.list.addEventListener('mouseover', function () {
+        this.container.addEventListener('mouseover', function () {
             _this.stopPlay();
         }, false);
-        this.list.addEventListener('mouseout', function () {
+        this.container.addEventListener('mouseout', function () {
             _this.autoPlay();
         }, false);
+
+        //  第几个按钮点击，还有更好的写法吗？
+        var self = this;
+        for (var i = 0; i < this.bullet.length; i++) {
+            this.bullet[i].index = i;
+            this.bullet[i].onclick = function () {
+                self.moveToIndex(this.index + 1);
+            };
+        }
     }
 
     _createClass(Swiper, [{
@@ -101,9 +102,28 @@ var Swiper = function () {
             this.initNum = this.initNum + num;
             this.left = this.initNum * this.offsetX;
             setTimeout(function () {
-                _this2.list.style.transition = "all 1s ease-in-out";
+                _this2.list.style.transition = "all 1s linear";
                 _this2.list.style.left = -_this2.left + 'px';
             }, 20);
+        }
+    }, {
+        key: "moveToIndex",
+        value: function moveToIndex(index) {
+            var currentNum = this.initNum;
+            var diff = 0;
+
+            if (currentNum === 4) {
+                currentNum = 1;
+            }
+            if (currentNum === index) {
+                return;
+            } else if (index > currentNum) {
+                diff = index - currentNum;
+            } else {
+                diff = Math.abs(currentNum - this.length) + index;
+            }
+            this.moveStep(diff);
+            this.highlightBullet(index);
         }
     }, {
         key: "highlightBullet",
