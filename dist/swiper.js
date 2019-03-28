@@ -28,10 +28,11 @@ var Swiper = function () {
         this.pagination = document.querySelector(this.setting.pagination);
 
         this.thumbs = document.getElementById(this.setting.thumbs.el);
+        this.thumbWrapper = this.thumbs.getElementsByTagName('ul')[0];
         this.thumbRect = this.thumbs.getElementsByClassName('rectangle')[0];
         this.thumbsLength = this.setting.thumbs.num;
         this.thumbsItem = this.thumbs.getElementsByClassName('thumbs-item');
-        this.thumbsItemWidth = ((this.setting.width - (this.thumbsLength - 1) * 10) / this.thumbsLength).toFixed(2);
+        this.thumbsItemWidth = +((this.setting.width - (this.thumbsLength - 1) * 10) / this.thumbsLength).toFixed(2);
 
         for (var i = 0; i < this.thumbsItem.length; i++) {
             this.thumbsItem[i].style.width = this.thumbsItemWidth + 'px';
@@ -181,7 +182,14 @@ var Swiper = function () {
     }, {
         key: "selectThumb",
         value: function selectThumb(index) {
-            this.thumbRect.style.left = this.thumbsItem[index].offsetLeft + 'px';
+            var offsetX = this.thumbsItem[index].offsetLeft;
+            if (offsetX > this.setting.width) {
+                this.thumbWrapper.style.transform = "translateX(" + (this.setting.width - offsetX - this.thumbsItemWidth) + "px)";
+            } else if (offsetX === 0) {
+                this.thumbWrapper.style.transform = "translateX(0px)";
+            }
+            this.thumbRect.style.left = offsetX + 'px';
+
             this.moveToIndex(index);
         }
     }]);
