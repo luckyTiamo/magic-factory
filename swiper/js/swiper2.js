@@ -6,14 +6,28 @@ const defaultSetting = {
 class Swiper {
     constructor(options) {
         this.setting = Object.assign(defaultSetting, options);
-        this.container = document.getElementById('swiperContainer');
+        this.container = document.getElementById(this.setting.container);
         this.list = this.container.getElementsByTagName('ul')[0];
         this.swiperItem = this.container.getElementsByClassName('swiper-item');
         this.length = this.swiperItem.length;
-        this.prev = document.getElementById('swiperPrev');
-        this.next = document.getElementById('swiperNext');
+        this.prev = document.getElementById(this.setting.prevBtn);
+        this.next = document.getElementById(this.setting.nextBtn);
 
-        this.pagination = document.getElementsByClassName('pagination')[0];
+        const pagination = this.setting.pagination;
+        this.pagination = document.querySelector(pagination);
+
+        // 动态创建dom
+        for (let i = 0; i < this.length; i++) {
+            let bulletDom = document.createElement('span');
+            if (i === 0) {
+                bulletDom.className = 'bullet active';
+
+            } else {
+                bulletDom.className = 'bullet';
+            }
+            this.pagination.append(bulletDom);
+        }
+
         this.bullet = document.getElementsByClassName('bullet');
 
         this.left = 0;
@@ -84,7 +98,7 @@ class Swiper {
         this.initNum = this.initNum + num;
         this.left = this.initNum * this.offsetX;
         setTimeout(() => {
-            this.list.style.transition = "all 1s linear";
+            this.list.style.transition = "all .8s linear";
             this.list.style.left = -this.left + 'px';
         }, 20);
     }

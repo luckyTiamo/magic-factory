@@ -19,9 +19,6 @@
             </li>
         </ul>
         <div class="pagination">
-            <span class="bullet active"></span>
-            <span class="bullet"></span>
-            <span class="bullet"></span>
         </div>
         <div class="btn prev-btn" id="swiperPrev"></div>
         <div class="btn next-btn" id="swiperNext"></div>
@@ -68,6 +65,7 @@
         background: #000;
         opacity: .2;
         cursor: pointer;
+        margin-right: 6px;
     }
     .bullet.active {
         opacity: 1;
@@ -93,7 +91,12 @@
 <script>
     window.onload = function() {
         var swiper = new Swiper({
-            container: 'swiperContainer'
+            container: 'swiperContainer',
+            width: 600,
+            height: 400,
+            pagination: '.pagination',
+            prevBtn: 'swiperPrev',
+            nextBtn: 'swiperNext'
         })
     }
 </script>
