@@ -29,6 +29,7 @@ class Swiper {
         }
 
         this.bullet = document.getElementsByClassName('bullet');
+        this.list.style.width = (this.length + 2) * this.setting.width;
 
         this.left = 0;
         this.offsetX = this.setting.width;
@@ -106,8 +107,7 @@ class Swiper {
     moveToIndex(index) {
         let currentNum = this.initNum;
         let diff = 0;
-        
-        if (currentNum === 4) {
+        if (currentNum === this.length + 1) {
             currentNum = 1;
         }
         if (currentNum === index) {

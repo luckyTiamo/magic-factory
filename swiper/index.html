@@ -9,7 +9,7 @@
     <div class="container" id="swiperContainer">
         <ul class="swiper-wrapper">
             <li class="swiper-item" data-index='1'>
-                <img src="../image/1.jpg">
+                <img src="http://lorempixel.com/1200/1200/nature/2">
             </li>
             <li class="swiper-item" data-index='2'>
                 <img src="../image/2.jpg">
@@ -17,9 +17,11 @@
             <li class="swiper-item" data-index='3'>
                 <img src="../image/3.jpg">
             </li>
+            <li class="swiper-item" data-index='4'>
+                <img src="../image/1.jpg">
+            </li>
         </ul>
-        <div class="pagination">
-        </div>
+        <div class="pagination"></div>
         <div class="btn prev-btn" id="swiperPrev"></div>
         <div class="btn next-btn" id="swiperNext"></div>
     </div>
@@ -36,7 +38,7 @@
         list-style: none;
         padding: 0;
         margin: 0;
-        width: 3000px;
+        /* width: 3600px; */
         height: 100%;
         /* transition: all 0.5s ease; */
         position: relative;
@@ -92,8 +94,6 @@
     window.onload = function() {
         var swiper = new Swiper({
             container: 'swiperContainer',
-            width: 600,
-            height: 400,
             pagination: '.pagination',
             prevBtn: 'swiperPrev',
             nextBtn: 'swiperNext'
