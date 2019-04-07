@@ -50,19 +50,20 @@ class Swiper {
         this.index = 0;
 
         this.init();
+        this.autoPlay();
 
         this.prev.addEventListener('click', () => {
             this.movePrev();
         }, false);
 
-        this.next.addEventListener('click', () => {
+        this.next.addEventListener('click', () => {    
             this.moveNext();
         }, false);
 
-        this.swiperMain.addEventListener('mouseover', () => {
+        this.container.addEventListener('mouseenter', () => {
             this.stopPlay();
         }, false);
-        this.swiperMain.addEventListener('mouseout', () => {
+        this.container.addEventListener('mouseleave', () => {
             this.autoPlay();
         }, false);
 
@@ -91,7 +92,6 @@ class Swiper {
         this.initNum = 1;
         this.left = this.initNum * this.offsetX;
         this.list.style.transform = `translateX(${-this.left}px)`;
-        this.autoPlay();
     }
 
     moveNext() {
@@ -149,6 +149,7 @@ class Swiper {
     }
 
     autoPlay() {
+        this.stopPlay();
         timer = setInterval(() => {
             this.moveNext();
         }, 3000)

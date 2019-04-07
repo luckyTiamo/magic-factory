@@ -59,6 +59,7 @@ var Swiper = function () {
         this.index = 0;
 
         this.init();
+        this.autoPlay();
 
         this.prev.addEventListener('click', function () {
             _this.movePrev();
@@ -68,10 +69,10 @@ var Swiper = function () {
             _this.moveNext();
         }, false);
 
-        this.swiperMain.addEventListener('mouseover', function () {
+        this.container.addEventListener('mouseenter', function () {
             _this.stopPlay();
         }, false);
-        this.swiperMain.addEventListener('mouseout', function () {
+        this.container.addEventListener('mouseleave', function () {
             _this.autoPlay();
         }, false);
 
@@ -102,7 +103,6 @@ var Swiper = function () {
             this.initNum = 1;
             this.left = this.initNum * this.offsetX;
             this.list.style.transform = "translateX(" + -this.left + "px)";
-            this.autoPlay();
         }
     }, {
         key: "moveNext",
@@ -170,6 +170,7 @@ var Swiper = function () {
         value: function autoPlay() {
             var _this3 = this;
 
+            this.stopPlay();
             timer = setInterval(function () {
                 _this3.moveNext();
             }, 3000);
