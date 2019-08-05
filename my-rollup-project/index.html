@@ -10,7 +10,7 @@
 <body>
     <div class="container" id="container">
         <ul class="list-wrapper" id="listWrapper">
-            <li class="item">1</li>
+            <!-- <li class="item">1</li>
             <li class="item">2</li>
             <li class="item">3</li>
             <li class="item">4</li>
@@ -18,7 +18,7 @@
             <li class="item">6</li>
             <li class="item">7</li>
             <li class="item">8</li>
-            <li class="item">9</li>
+            <li class="item">9</li> -->
         </ul>
     </div>
 </body>
@@ -28,26 +28,40 @@
         $el: 'container',
         downThread: 30,
         load() {
-            getList();
+            return getList();
         }
     });
-    var page = 1;
+    var page = 0;
+    var loading = false;
 
     function getList() {
-        setTimeout(() => {
-            function createDocumentFragment(txt) {
-                const template = `<li class='item'>${txt}</li>`;
-                let frag = document.createRange().createContextualFragment(template);
-                return frag;
+        return new Promise(resolve => {
+            if (loading) {
+                return false;
             }
-        
-            var fragContainer = document.createDocumentFragment();
-            for (var i = 0; i < 10; i++) {
-                fragContainer.appendChild(createDocumentFragment(i + 10 * page));
-            }
-            document.getElementById('listWrapper').appendChild(fragContainer);   
-            page++;
-        }, 1000);
+            loading = true;
+            setTimeout(() => {
+                function createDocumentFragment(txt) {
+                    const template = `<li class='item'>${txt}</li>`;
+                    let frag = document.createRange().createContextualFragment(template);
+                    return frag;
+                }
+            
+                var fragContainer = document.createDocumentFragment();
+                for (var i = 0; i < 10; i++) {
+                    fragContainer.appendChild(createDocumentFragment(i + 10 * page));
+                }
+                document.getElementById('listWrapper').appendChild(fragContainer);  
+                if (page >= 10) {
+                    loading = false;
+                    resolve(false);
+                } else {
+                    page++;
+                    loading = false;
+                    resolve(true);
+                }
+            }, 1000);
+        })
     }
     
     

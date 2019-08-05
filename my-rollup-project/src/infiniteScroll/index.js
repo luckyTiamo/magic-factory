@@ -3,31 +3,52 @@ class InfiniteScroll {
         this.options = Object.assign({}, options)
         this.$el = document.getElementById(this.options.$el);
         this.downThread = this.options.downThread || 20;
+        this._scrollHandler= null;
+        this.ended = false;
         this.init();
     }
     init() {
-        this.$el.addEventListener('scroll', () => {
+        debugger;
+        this._scrollHandler = () => {
             this.scrollLoad();
-        });
+        };
+        this.$el.addEventListener('scroll', this._scrollHandler, false);
+        this._scrollHandler();
     }
+
     scrollLoad() {
-        this.scrollTop = +this.$el.scrollTop;
-        this.clientHeight = +this.$el.clientHeight;
-        this.scrollHeight = +this.$el.scrollHeight;
+        this.scrollTop = this.$el.scrollTop;
+        this.clientHeight = this.$el.clientHeight;
+        this.scrollHeight = this.$el.scrollHeight;
 
         if (this.scrollHeight - this.clientHeight - this.scrollTop <= this.downThread) {
+            console.log('>>>', this.scrollHeight, this.clientHeight, this.scrollTop)
             this.load();
         }
     }
     load() {
-        return this.options.load();
+        if (this.ended) {
+            return;
+        }
+        if (this.options.load) {
+            return Promise.resolve()
+                .then(() => this.options.load())
+                .then(result => {
+                    if (result === false) {
+                        this.ended = true;
+                    } else {
+                        this.scrollLoad();
+                    }
+                });
+        }
     }
     destroy() {
+        this.$el.removeEventListener('scroll', this._scrollHandler, false);
         this.$el = null;
-        this.downThread = 20;
-        document.getElementById(this.$el).removeEventListener('scroll', () => {
-            this.scrollLoad();
-        });
+        this._scrollHandler = null;
+        this.downThread = null;
+        this.options = null;
+        this.ended = null;
     }
 }
 // export default function createInfiniteScroll(options) {
