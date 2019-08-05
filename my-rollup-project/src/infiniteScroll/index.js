@@ -30,6 +30,10 @@ class InfiniteScroll {
         });
     }
 }
-export default function createInfiniteScroll(options) {
-    return new InfiniteScroll(options);
+// export default function createInfiniteScroll(options) {
+//     return new InfiniteScroll(options)
+// }
+
+window.createInfiniteScroll = function (options) {
+    new InfiniteScroll(options);
 }

@@ -11,7 +11,8 @@ export default {
     input: 'src/infiniteScroll/index.js',
     output: {
         file: 'dist/infiniteScroll.js',
-        format: 'cjs'
+        format: 'iife',
+        name: 'myBundle'
     },
     plugins: [
         json(),
