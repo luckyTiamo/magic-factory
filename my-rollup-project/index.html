@@ -1,0 +1,81 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>my rollup project!</title>
+</head>
+
+<body>
+    <div class="container" id="container">
+        <ul class="list-wrapper" id="listWrapper">
+            <li class="item">1</li>
+            <li class="item">2</li>
+            <li class="item">3</li>
+            <li class="item">4</li>
+            <li class="item">5</li>
+            <li class="item">6</li>
+            <li class="item">7</li>
+            <li class="item">8</li>
+            <li class="item">9</li>
+        </ul>
+    </div>
+</body>
+<script type="text/javascript" src="./dist/infiniteScroll.js"></script>
+<script>
+    var infiniteScroll = createInfiniteScroll({
+        $el: 'container',
+        downThread: 30,
+        load() {
+            getList();
+        }
+    });
+    var page = 1;
+
+    function getList() {
+        setTimeout(() => {
+            function createDocumentFragment(txt) {
+                const template = `<li class='item'>${txt}</li>`;
+                let frag = document.createRange().createContextualFragment(template);
+                return frag;
+            }
+        
+            var fragContainer = document.createDocumentFragment();
+            for (var i = 0; i < 10; i++) {
+                fragContainer.appendChild(createDocumentFragment(i + 10 * page));
+            }
+            document.getElementById('listWrapper').appendChild(fragContainer);   
+            page++;
+        }, 1000);
+    }
+    
+    
+</script>
+</html>
+<style>
+    .container {
+        width: 100%;
+        height: 500px;
+        background: #333;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+    .list-wrapper {
+        width: 100%;
+        background: #4680ff;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+    .item {
+        width: 100%;
+        height: 100px;
+        background: #ffe846;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        border-bottom: 10px solid #666;
+        text-align: center;
+    }
+</style>
