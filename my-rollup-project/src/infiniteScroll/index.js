@@ -22,7 +22,6 @@ class InfiniteScroll {
         this.scrollHeight = this.$el.scrollHeight;
 
         if (this.scrollHeight - this.clientHeight - this.scrollTop <= this.downThread) {
-            console.log('>>>', this.scrollHeight, this.clientHeight, this.scrollTop)
             this.load();
         }
     }
