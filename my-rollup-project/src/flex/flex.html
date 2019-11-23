@@ -1,0 +1,50 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <!-- <div class="wrapper">
+        <span class="item">1</span>
+        <span class="item">2</span>
+        <span class="item">3</span>
+        <span class="item">4</span>
+    </div> -->
+    <div class="wrapper">
+        <div class="box">
+            <span class="item">1</span>
+            <span class="item">2</span>
+        </div>
+        <div class="box">
+            <span class="item">3</span>
+            <span class="item">4</span>
+        </div>
+    </div>
+</body>
+<style>
+    .wrapper {
+        width: 600px;
+        height: 600px;
+        background: #333;
+        display: flex;
+        flex-wrap: wrap;
+        align-content: space-between;
+        /* flex-direction: column; */
+        /* justify-content: space-between; */
+        /* align-items: flex-end; */
+    }
+    .item {
+        width: 200px;
+        height: 200px;
+        background: #f5ec28;
+    }
+    /* .item:nth-child(2) {
+        align-self: center;
+    }
+    .item:nth-child(3) {
+        align-self: flex-end;
+    } */
+</style>
+</html>

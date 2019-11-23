@@ -8,7 +8,6 @@ class InfiniteScroll {
         this.init();
     }
     init() {
-        debugger;
         this._scrollHandler = () => {
             this.scrollLoad();
         };

@@ -8,9 +8,9 @@ import json from 'rollup-plugin-json';
 //     return path.join(__dirname, '..', filePath)
 // }
 export default {
-    input: 'src/infiniteScroll/index.js',
+    input: 'src/littleVue/index.js',
     output: {
-        file: 'dist/infiniteScroll.js',
+        file: 'dist/vue.js',
         format: 'iife',
         name: 'myBundle'
     },
